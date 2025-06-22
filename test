@@ -1,0 +1,173 @@
+Vi has different modes of operation. This is crucial to understand:
+
+Normal Mode (Command Mode): This is the default mode when you open vi/Vim. In this mode, keystrokes are interpreted as commands (e.g., dd to delete a line, i to insert). You cannot type text directly in this mode. 
+How to enter: Press Esc from any other mode.
+Insert Mode: In this mode, you can type and insert text into the file.
+How to enter: From Normal Mode, press i, a, o, I, A, O, etc.
+How to exit: Press Esc to return to Normal Mode.
+Visual Mode (Vim only): Allows you to select text visually, character by character, line by line, or block by block, and then apply commands to the selection.
+How to enter: From Normal Mode, press v (character), V (line), or Ctrl+v (block).
+How to exit: Press Esc to return to Normal Mode.
+Command-Line Mode (Ex Mode): Used for more complex commands, like saving, quitting, search/replace, or executing external commands.
+How to enter: From Normal Mode, press : (colon).
+How to exit: After executing a command, you return to Normal Mode.
+
+
+
+I. Entering Insert Mode (from Normal Mode)
+These commands put you into Insert mode at different positions:
+
+i: Insert text before the cursor.
+a: Append text after the cursor.
+o: Open a new line below the current line and enter Insert mode.
+O: Open a new line above the current line and enter Insert mode.
+I: Insert text at the beginning of the current line.
+A: Append text at the end of the current line.
+
+
+II. Navigation (in Normal Mode)
+
+Basic Cursor Movement:
+h: Move cursor left (like left arrow)
+j: Move cursor down (like down arrow)
+k: Move cursor up (like up arrow)
+l: Move cursor right (like right arrow)
+
+Word Movement:
+w: Move to the beginning of the next word.
+W: Move to the beginning of the next word (ignoring punctuation, "WORD" movement).
+b: Move to the beginning of the previous word.
+B: Move to the beginning of the previous word (ignoring punctuation).
+e: Move to the end of the current or next word.
+E: Move to the end of the current or next word (ignoring punctuation).
+
+Line Movement:
+0 (zero): Move to the beginning of the current line.
+^: Move to the first non-blank character of the current line.
+$: Move to the end of the current line.
+g_: Move to the last non-blank character of the current line.
+gg: Move to the first line of the file.
+G: Move to the last line of the file.
+#G or #gg: Go to line number # (e.g., 10G goes to line 10).
+
+
+Screen/Page Movement:
+H: Move to the top of the screen (Home).
+M: Move to the middle of the screen.
+L: Move to the bottom of the screen (Last).
+Ctrl+f: Move forward one screen (page down).
+Ctrl+b: Move backward one screen (page up).
+Ctrl+d: Move forward half a screen.
+Ctrl+u: Move backward half a screen.
+zz: Center the current line on the screen.
+III. Editing Commands (in Normal Mode)
+
+
+Delete/Cut:
+x: Delete character under the cursor.
+X: Delete character before the cursor.
+dw: Delete from cursor to the end of the word.
+d0: Delete from cursor to the beginning of the line.
+d$: Delete from cursor to the end of the line.
+dd: Delete (cut) the entire current line.
+#dd: Delete # lines (e.g., 5dd deletes 5 lines).
+D: Delete from cursor to end of line (same as d$).
+
+Copy/Yank:
+yy: Yank (copy) the entire current line.
+#yy: Yank # lines (e.g., 3yy yanks 3 lines).
+yw: Yank from cursor to the end of the word.
+y$: Yank from cursor to the end of the line.
+
+
+Paste:
+p: Paste content after the cursor (or below the current line if a line was yanked/deleted).
+P: Paste content before the cursor (or above the current line if a line was yanked/deleted).
+
+
+Change/Replace:
+r: Replace a single character under the cursor. (You type the replacement character immediately after r).
+R: Enter Replace mode (type over existing characters until Esc is pressed).
+cw: Change (delete and then insert) from cursor to end of word.
+C: Change from cursor to end of line (same as c$).
+cc: Change the entire current line (deletes the line and enters Insert mode).
+s: Substitute character under cursor (deletes character and enters Insert mode).
+S: Substitute (change) the entire current line (same as cc).
+
+
+Undo/Redo:
+u: Undo the last change.
+Ctrl+r: Redo the last undone change (Vim only).
+IV. Search and Replace (in Command-Line Mode)
+Press : to enter Command-Line mode.
+
+
+Search:
+/pattern: Search forward for pattern.
+?pattern: Search backward for pattern.
+n: Go to the next occurrence of the search pattern.
+N: Go to the previous occurrence of the search pattern.
+*: Search forward for the word under the cursor.
+#: Search backward for the word under the cursor.
+
+
+Replace:
+:%s/old/new/g: Replace all occurrences of old with new in the entire file.
+%: operate on all lines.
+s: substitute command.
+g: global (replace all occurrences on each line).
+:%s/old/new/gc: Replace all occurrences, but confirm each replacement.
+:#,#s/old/new/g: Replace occurrences between line numbers # and # (e.g., :10,20s/old/new/g).
+:.s/old/new/g: Replace occurrences on the current line.
+:/pattern/+s/old/new/g: Replace on lines containing pattern.
+V. Saving and Quitting (in Command-Line Mode)
+
+
+Press : to enter Command-Line mode.
+:w: Save the current file.
+:q: Quit (exit) the editor.
+:wq or :x: Save and quit.
+:q!: Quit without saving changes (force quit).
+:w! filename: Save the current file as filename (force overwrite if filename exists).
+:wa: Save all open files (Vim only, if you have multiple buffers).
+:qa: Quit all open files (Vim only).
+:wqa: Save all and quit all (Vim only).
+
+VI. Visual Mode (Vim Only)
+v: Start visual mode (character-by-character selection). Move cursor to extend selection.
+V: Start visual line mode (select entire lines). Move cursor up/down to extend selection.
+Ctrl+v: Start visual block mode (select rectangular blocks of text).
+Once text is selected:
+d: Delete selected text.
+y: Yank (copy) selected text.
+
+p/P: Paste.
+c: Change (delete selected text and enter Insert mode).
+>: Indent selected lines.
+<: Unindent selected lines.
+
+VII. Marks and Jumps (in Normal Mode)
+ma: Set mark 'a' at current cursor position.
+`a: Go to the exact position of mark 'a'.
+'a: Go to the beginning of the line where mark 'a' was set.
+` (two backticks): Go to the previous jump position (e.g., after a search or a G command).
+'': Go to the beginning of the line of the previous jump position.
+Ctrl+o: Go to older position in the jump list.
+Ctrl+i: Go to newer position in the jump list.
+
+VIII. Advanced / Less Common (but Powerful) Commands
+.: Repeat the last change/command. Incredibly powerful! (e.g., dd then ., ciw then .).
+J: Join the current line with the line below it.
+~: Change case of the character under the cursor (uppercase to lowercase, lowercase to uppercase).
+gU: Make text uppercase. (e.g. gUw makes current word uppercase)
+gu: Make text lowercase. (e.g. guw makes current word lowercase)
+Ctrl+a: Increment the number under the cursor.
+Ctrl+x: Decrement the number under the cursor.
+xp: Transpose two characters (swap current character with next).
+
+: (Command-line mode):
+:r filename: Read (insert) the content of filename into the current buffer below the cursor.
+:!command: Execute an external shell command (e.g., :!ls -l).
+:r !command: Execute command and insert its output into the current buffer.
+:%!sort: Sort the entire file (pipe through external sort command).
+:help topic: Get help on a specific topic (e.g., :help :w).
